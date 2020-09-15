@@ -16,14 +16,16 @@ public class GradeServiceTest {
     /* 需求描述：
     编写GradeService类的单元测试，单元测试calculateAverageGrades方法
     * */
-    @Mock
-    GradeSystem gradeSystemMock;
-    @InjectMocks
     GradeService gradeService;
-
+    @BeforeEach
+    public void setUp(){
+    GradeSystemStub gradeSystemStub= new GradeSystemStub();
+    gradeService = new GradeService(gradeSystemStub);
+   }
     @Test
     public void shouldReturn90WhenCalculateStudentAverageGradeAndGradeIs80And90And100() {
-        when(gradeSystemMock.gradesFor(1)).thenReturn(Arrays.asList(80.0, 90.0, 100.0));
-        assertEquals(90.0,gradeService.calculateAverageGrades(1));
+
+       Double result = gradeService.calculateAverageGrades(10L);
+       Assertions.assertEquals(90.0,result);
     }
 }
